@@ -1,0 +1,15 @@
+hosts:
+  pi1:
+    address: 192.168.2.129
+    master: true
+  pi2:
+    address: 192.168.2.130
+  pi3:
+    address: 192.168.2.131
+shared:
+  user: yuseinishiyama
+  prefix_length: 24
+  gateway4: 192.168.2.1
+  nameserver:
+    address: 192.168.2.1
+    search: Speedport_W_724V_Typ_A_05011603_06_003
