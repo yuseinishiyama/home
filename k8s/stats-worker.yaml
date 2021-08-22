@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: stats-worker
+spec:
+  schedule: "0 */6 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: worker
+              # multi-arch manifest doesn't work
+              # image: 921647845311.dkr.ecr.eu-west-1.amazonaws.com/stats:latest
+              image: 921647845311.dkr.ecr.eu-west-1.amazonaws.com/stats@sha256:817cf60a954214234cec898a681e0c0172bd2170ce35a1874a6f38602617202d
+              imagePullPolicy: IfNotPresent
+              args:
+                - worker
+          restartPolicy: Never
+          imagePullSecrets:
+            - name: ecr
