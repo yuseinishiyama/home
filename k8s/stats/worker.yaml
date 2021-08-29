@@ -2,7 +2,6 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: worker
-  namespace: stats
 spec:
   schedule: "0 */6 * * *"
   jobTemplate:

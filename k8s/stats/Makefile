@@ -1,5 +1,5 @@
 deploy: docker-secret
-	kubectl apply -f .
+	kubectl apply -n stats -f .
 
 docker-secret:
 	@kubectl get secret ecr -n stats || \
