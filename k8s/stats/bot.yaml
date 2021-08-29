@@ -32,3 +32,17 @@ spec:
   ports:
     - protocol: TCP
       port: 80
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: bot
+spec:
+  entryPoints:
+    - web
+  routes:
+  - match: Host(`stats-bot.yuseinishiyama.com`) && PathPrefix(`/webhook`)
+    kind: Rule
+    services:
+    - name: bot
+      port: 80
