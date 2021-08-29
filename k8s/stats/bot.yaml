@@ -21,3 +21,14 @@ spec:
             - containerPort: 80
       imagePullSecrets:
         - name: ecr
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bot
+spec:
+  selector:
+    app: bot
+  ports:
+    - protocol: TCP
+      port: 80
