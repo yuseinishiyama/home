@@ -19,6 +19,17 @@ spec:
             - bot
           ports:
             - containerPort: 80
+          env:
+            - name: FB_VERIFY_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: bot
+                  key: fb-verify-token
+            - name: FB_ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: bot
+                  key: fb-access-token
       imagePullSecrets:
         - name: ecr
 ---
