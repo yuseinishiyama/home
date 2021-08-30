@@ -40,9 +40,38 @@ metadata:
 spec:
   entryPoints:
     - web
+    - websecure
   routes:
-  - match: Host(`stats-bot.yuseinishiyama.com`) && PathPrefix(`/webhook`)
-    kind: Rule
-    services:
-    - name: bot
-      port: 80
+    - match: Host(`stats-bot.yuseinishiyama.com`) && PathPrefix(`/webhook`)
+      kind: Rule
+      services:
+        - name: bot
+          port: 80
+  tls:
+    secretName: tls-bot
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: bot-staging
+spec:
+  secretName: tls-bot-staging
+  issuerRef:
+    group: cert-manager.io
+    name: letsencrypt-staging
+    kind: ClusterIssuer
+  dnsNames:
+    - stats-bot.yuseinishiyama.com
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: bot
+spec:
+  secretName: tls-bot
+  issuerRef:
+    group: cert-manager.io
+    name: letsencrypt
+    kind: ClusterIssuer
+  dnsNames:
+    - stats-bot.yuseinishiyama.com
