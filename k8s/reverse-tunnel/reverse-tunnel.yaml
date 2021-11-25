@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reverse-tunnel
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reverse-tunnel
+  template:
+    metadata:
+      labels:
+        app: reverse-tunnel
+    spec:
+      hostNetwork: true
+      containers:
+        - name: reverse-tunnel
+          image: 921647845311.dkr.ecr.eu-west-1.amazonaws.com/reverse-tunnel:arm64v7
+          env:
+            - name: LOCAL_PORT
+              value: "443"
+            - name: REMOTE_IP
+              value: "54.154.109.245"
+            - name: REMOTE_PORT
+              value: "10000"
+            - name: REMOTE_USER
+              value: ec2-user
+            - name: PRIVATE_KEY_PATH
+              value: /etc/secrets/ssh-privatekey
+          volumeMounts:
+            - mountPath: /etc/secrets
+              name: secrets
+              readOnly: true
+      volumes:
+        - name: secrets
+          secret:
+            secretName: secrets
+      imagePullSecrets:
+        - name: ecr
