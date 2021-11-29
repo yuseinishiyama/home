@@ -22,7 +22,7 @@ spec:
             - name: REMOTE_IP
               value: "54.154.109.245"
             - name: REMOTE_PORT
-              value: "10000"
+              value: "8443"
             - name: REMOTE_USER
               value: ec2-user
             - name: PRIVATE_KEY_PATH
