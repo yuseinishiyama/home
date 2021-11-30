@@ -11,7 +11,10 @@ spec:
     solvers:
       - http01:
           ingress:
-            class: traefik
+            ingressTemplate:
+              metadata:
+                annotations:
+                  kubernetes.io/ingress.class: traefik
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -26,5 +29,7 @@ spec:
     solvers:
       - http01:
           ingress:
-            class: traefik
-
+            ingressTemplate:
+              metadata:
+                annotations:
+                  kubernetes.io/ingress.class: traefik
